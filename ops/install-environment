@@ -1,0 +1,45 @@
+#!/bin/sh
+set -eu
+root="$HERMES_PROJECT_HOME"
+mkdir -p "$root/.harness/results/round-1" "$root/.harness/results/round-2"
+cat > "$root/.harness/results/round-1/result.json" <<'JSON'
+{"status":"succeeded","profile":"loop","round":1,"fixture":true,"scores":{"deterministic":0.75,"model":0.60},"sections":["conclusion","evidence","risks"]}
+JSON
+cat > "$root/.harness/results/round-1/artifact.md" <<'MD'
+# Mini brief — round 1
+
+## Conclusion
+The baseline contains a conclusion.
+
+## Evidence
+The baseline contains evidence.
+
+## Risks
+The baseline lists risks.
+MD
+cat > "$root/.harness/results/round-1/manifest.json" <<'JSON'
+{"artifacts":[{"path":"artifact.md","name":"artifact.md","kind":"report","content_type":"text/markdown"}]}
+JSON
+cat > "$root/.harness/results/round-2/result.json" <<'JSON'
+{"status":"succeeded","profile":"loop","round":2,"fixture":true,"scores":{"deterministic":1.0,"model":0.90},"sections":["conclusion","evidence","risks","next_steps"]}
+JSON
+cat > "$root/.harness/results/round-2/artifact.md" <<'MD'
+# Mini brief — round 2
+
+## Conclusion
+The optimized brief states the conclusion.
+
+## Evidence
+The optimized brief lists the evidence.
+
+## Risks
+The optimized brief states the risks.
+
+## Next steps
+The optimized brief gives one concrete next step.
+MD
+cat > "$root/.harness/results/round-2/manifest.json" <<'JSON'
+{"artifacts":[{"path":"artifact.md","name":"artifact.md","kind":"report","content_type":"text/markdown"}]}
+JSON
+touch "$root/.harness/environment-ready"
+printf '{"installed":true,"fixture":"control-plane-loop"}\n'

@@ -1,0 +1,6 @@
+#!/bin/sh
+if [ -f "$HERMES_PROJECT_HOME/.harness/environment-ready" ]; then
+  printf '{"ready":true,"fixture":"control-plane-loop"}\n'
+else
+  printf '{"ready":false,"fixture":"control-plane-loop"}\n'
+fi
